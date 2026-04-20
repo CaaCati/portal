@@ -190,17 +190,20 @@ html, body {
   width: 100%; max-width: 540px;
   padding: 0 20px;
   display: flex; flex-direction: column;
+  height: 100vh;
+  justify-content: center;
   gap: 0;
 }
 
 /* Header */
 .p-header {
   display: flex; align-items: center; gap: 14px;
-  padding-bottom: 16px;
-  margin-bottom: 16px;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
   border-bottom: 1px solid rgba(240,120,32,0.15);
   opacity: 0;
   animation: slideDown 0.6s 0.1s ease forwards;
+  flex-shrink: 0;
 }
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-12px); }
@@ -228,16 +231,18 @@ html, body {
 /* Lista de módulos */
 .modules {
   display: flex; flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  flex: 1;
+  justify-content: center;
 }
 
 .mod {
-  display: flex; align-items: center;
+  display: flex; align-items: flex-start;
   gap: 16px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 16px 18px;
+  padding: 18px 18px;
   text-decoration: none; color: inherit;
   position: relative; overflow: hidden;
   cursor: pointer;
@@ -318,13 +323,20 @@ html, body {
   color: var(--text);
   font-size: 15px; font-weight: 600;
   line-height: 1.2;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 5px;
+}
+.mod-desc {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px; font-weight: 400;
+  color: var(--text-dim);
+  line-height: 1.55;
 }
 
 /* Derecha */
 .mod-right {
   flex-shrink: 0;
-  display: flex; align-items: center;
+  display: flex; align-items: flex-start;
+  padding-top: 2px;
 }
 .mod-arrow {
   color: var(--naranja);
@@ -384,6 +396,7 @@ html, body {
         <div class="mod-text">
           <div class="mod-tag">Finanzas</div>
           <div class="mod-name">Pagos Municipales</div>
+          <div class="mod-desc">Proveedores, órdenes de pago, caja chica y movimientos financieros del municipio.</div>
         </div>
         <div class="mod-right"><span class="mod-arrow">›</span></div>
       </a>
@@ -393,6 +406,7 @@ html, body {
         <div class="mod-text">
           <div class="mod-tag">Gestión</div>
           <div class="mod-name">Agenda del Intendente</div>
+          <div class="mod-desc">Reuniones, eventos y compromisos oficiales organizados por fecha y prioridad.</div>
         </div>
         <div class="mod-right"><span class="mod-arrow">›</span></div>
       </a>
@@ -402,6 +416,7 @@ html, body {
         <div class="mod-text">
           <div class="mod-tag">Inventario</div>
           <div class="mod-name">Stock Municipal</div>
+          <div class="mod-desc">Control de inventario de farmacia y depósito. Gestión de entregas por sector.</div>
         </div>
         <div class="mod-right"><span class="mod-arrow">›</span></div>
       </a>
@@ -411,6 +426,7 @@ html, body {
         <div class="mod-text">
           <div class="mod-tag">Administración</div>
           <div class="mod-name">Expedientes</div>
+          <div class="mod-desc">Seguimiento y gestión de expedientes administrativos municipales.</div>
         </div>
         <div class="mod-right"><span class="dev-pill">En desarrollo</span></div>
       </div>
