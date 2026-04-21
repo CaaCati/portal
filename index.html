@@ -41,7 +41,6 @@ html, body {
   overflow: hidden;
 }
 
-/* Anillo giratorio de fondo */
 .ring {
   position: absolute;
   border-radius: 50%;
@@ -92,7 +91,6 @@ html, body {
   to   { transform: rotate(360deg); }
 }
 
-/* Brillo central */
 .glow-bg {
   position: absolute;
   width: 500px; height: 500px;
@@ -106,7 +104,6 @@ html, body {
   to   { opacity: 1; transform: scale(1); }
 }
 
-/* Logo */
 .intro-logo-wrap {
   position: relative; z-index: 10;
   display: flex; flex-direction: column;
@@ -136,7 +133,6 @@ html, body {
   50%     { box-shadow: 0 0 0 1px rgba(240,120,32,0.4),  0 0 60px rgba(240,120,32,0.4),  0 0 120px rgba(240,120,32,0.2); }
 }
 
-/* Línea de scan que pasa sobre el logo */
 .scan-line {
   position: absolute;
   top: 0; left: 0;
@@ -153,7 +149,6 @@ html, body {
   100% { top: 100%; opacity: 0; }
 }
 
-/* Fade-out de la intro */
 #intro.out {
   animation: introOut 0.9s ease forwards;
 }
@@ -176,7 +171,6 @@ html, body {
 }
 #portal.show { opacity: 1; pointer-events: all; }
 
-/* Fondo sutil */
 #portal::before {
   content: '';
   position: absolute; inset: 0; pointer-events: none;
@@ -195,7 +189,6 @@ html, body {
   gap: 0;
 }
 
-/* Header */
 .p-header {
   display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;
   margin-top: 20px;
@@ -229,7 +222,6 @@ html, body {
   margin-top: 1px;
 }
 
-/* Lista de módulos */
 .modules {
   display: flex; flex-direction: column;
   gap: 12px;
@@ -264,7 +256,6 @@ html, body {
   to   { opacity: 1; transform: translateX(0); }
 }
 
-/* Borde izquierdo naranja */
 .mod::before {
   content: '';
   position: absolute; left: 0; top: 20%; bottom: 20%;
@@ -275,7 +266,6 @@ html, body {
   transition: opacity 0.25s, top 0.25s, bottom 0.25s;
 }
 
-/* Brillo hover */
 .mod::after {
   content: '';
   position: absolute; inset: 0;
@@ -292,12 +282,6 @@ html, body {
 .mod:hover::before, .mod:active::before { opacity: 1; top: 10%; bottom: 10%; }
 .mod:hover::after,  .mod:active::after  { opacity: 1; }
 
-.mod.disabled {
-  opacity: 0.45 !important;
-  cursor: default; pointer-events: none;
-}
-
-/* Ícono */
 .mod-icon {
   font-size: 28px; flex-shrink: 0;
   width: 44px; height: 44px;
@@ -312,7 +296,6 @@ html, body {
   background: rgba(240,120,32,0.1);
 }
 
-/* Texto */
 .mod-text { flex: 1; min-width: 0; }
 .mod-tag {
   font-size: 9px; font-weight: 700;
@@ -333,7 +316,6 @@ html, body {
   line-height: 1.55;
 }
 
-/* Derecha */
 .mod-right {
   flex-shrink: 0;
   display: flex; align-items: flex-start;
@@ -348,14 +330,6 @@ html, body {
 }
 .mod:hover .mod-arrow, .mod:active .mod-arrow {
   opacity: 1; transform: translateX(0);
-}
-.dev-pill {
-  font-size: 9px; font-weight: 700;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--naranja-light);
-  background: rgba(240,120,32,0.1);
-  border: 1px solid rgba(240,120,32,0.25);
-  padding: 4px 10px; border-radius: 20px;
 }
 </style>
 </head>
@@ -422,24 +396,21 @@ html, body {
         <div class="mod-right"><span class="mod-arrow">›</span></div>
       </a>
 
-      <div class="mod disabled">
+      <a class="mod" href="https://expedientes-caacati.duckdns.org" target="_blank">
         <div class="mod-icon">🗂️</div>
         <div class="mod-text">
           <div class="mod-tag">Administración</div>
           <div class="mod-name">Expedientes</div>
           <div class="mod-desc">Seguimiento y gestión de expedientes administrativos municipales.</div>
         </div>
-        <div class="mod-right"><span class="dev-pill">En desarrollo</span></div>
-      </div>
+        <div class="mod-right"><span class="mod-arrow">›</span></div>
+      </a>
 
     </div>
   </div>
 </div>
 
 <script>
-// La intro dura 3.4s y luego transiciona al portal
-// (click/tap la saltea)
-
 const intro  = document.getElementById('intro');
 const portal = document.getElementById('portal');
 let done = false;
@@ -454,10 +425,7 @@ function goPortal() {
   }, 850);
 }
 
-// Auto-avance
 setTimeout(goPortal, 3400);
-
-// Tap/click para saltear
 intro.addEventListener('click', goPortal);
 </script>
 </body>
