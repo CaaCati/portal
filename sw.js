@@ -1,9 +1,9 @@
 const CACHE = 'muni-portal-v1';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/Gestion.png',
-  '/IMG-20260325-WA0013.png'
+  './',
+  './index.html',
+  './Gestion.png',
+  './IMG-20260325-WA0013.png'
 ];
 
 self.addEventListener('install', e => {
