@@ -2,6 +2,11 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#F07820">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Muni Caá Catí">
+<link rel="apple-touch-icon" href="Gestion.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Municipio de Caá Catí</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -548,6 +553,11 @@ function goPortal() {
 setTimeout(goPortal, 3800);
 intro.addEventListener('click', goPortal);
 intro.addEventListener('touchstart', goPortal, { passive: true });
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js');
+  });
+}
 </script>
 </body>
 </html>
