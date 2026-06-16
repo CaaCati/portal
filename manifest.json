@@ -1,0 +1,22 @@
+{
+  "name": "Municipalidad de Caá Catí",
+  "short_name": "Muni Caá Catí",
+  "description": "Portal de gestión municipal",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0C0C0C",
+  "theme_color": "#F07820",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "Gestion.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Gestion.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
