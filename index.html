@@ -31,7 +31,7 @@ html, body {
 }
 
 /* ══════════════════════════════════════
-   INTRO MODERNA — MESH PARTICLES + GLITCH
+   INTRO MODERNA — MESH PARTICLES + ANILLOS
 ══════════════════════════════════════ */
 #intro {
   position: fixed; inset: 0; z-index: 200;
@@ -54,59 +54,63 @@ html, body {
   background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(12,12,12,0.9) 100%);
 }
 
-/* Logo central */
-.intro-logo-wrap {
-  position: relative; z-index: 10;
-  display: flex; flex-direction: column;
+/* Contenedor del logo + anillos */
+.intro-center {
+  position: relative;
+  z-index: 10;
+  display: flex;
   align-items: center;
-  opacity: 0;
-  animation: logoReveal 1.2s 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+  justify-content: center;
 }
 
+/* Logo central — MÁS GRANDE */
 .intro-logo {
-  width: min(55vw, 220px);
-  height: min(55vw, 220px);
+  width: min(72vw, 300px);
+  height: min(72vw, 300px);
   border-radius: 50%;
   display: block;
   position: relative;
+  z-index: 10;
+  opacity: 0;
+  animation: logoReveal 1.2s 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
   box-shadow:
     0 0 0 1px rgba(240,120,32,0.3),
     0 0 60px rgba(240,120,32,0.2),
     0 0 120px rgba(240,120,32,0.08);
-  animation: logoFloat 4s ease-in-out infinite, logoPulseGlow 3s ease-in-out infinite;
+  animation: logoReveal 1.2s 0.3s cubic-bezier(0.16,1,0.3,1) forwards,
+             logoFloat 4s ease-in-out infinite,
+             logoPulseGlow 3s ease-in-out infinite;
 }
 
-/* Anillos orbitando el logo */
+/* Anillos orbitando el logo — AJUSTADOS AL TAMAÑO */
 .orbit-ring {
   position: absolute;
   border-radius: 50%;
   border: 1px solid transparent;
   pointer-events: none;
   opacity: 0;
-  animation: orbitIn 1s ease forwards;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
 }
 .orbit-ring-1 {
-  width: 280px; height: 280px;
+  width: min(92vw, 380px);
+  height: min(92vw, 380px);
   border-top: 1.5px solid rgba(240,120,32,0.4);
   border-right: 1px solid rgba(240,120,32,0.1);
-  animation: orbitIn 1s 0.3s ease forwards, spin1 10s linear infinite;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+  animation: orbitIn 1s 0.5s ease forwards, spin1 10s linear infinite;
 }
 .orbit-ring-2 {
-  width: 340px; height: 340px;
+  width: min(110vw, 460px);
+  height: min(110vw, 460px);
   border-bottom: 1px solid rgba(240,120,32,0.25);
   border-left: 1.5px solid rgba(240,120,32,0.08);
-  animation: orbitIn 1s 0.5s ease forwards, spin2 15s linear infinite reverse;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+  animation: orbitIn 1s 0.7s ease forwards, spin2 15s linear infinite reverse;
 }
 .orbit-ring-3 {
-  width: 400px; height: 400px;
+  width: min(130vw, 540px);
+  height: min(130vw, 540px);
   border: 1px dashed rgba(240,120,32,0.12);
-  animation: orbitIn 1s 0.7s ease forwards, spin1 25s linear infinite;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
+  animation: orbitIn 1s 0.9s ease forwards, spin1 25s linear infinite;
 }
 
 /* Puntos orbitales */
@@ -128,81 +132,6 @@ html, body {
 .orbit-dot-3 {
   top: 50%; right: -3px; transform: translateY(-50%);
   animation: dotPulse 2s 0.5s ease-in-out infinite;
-}
-
-/* Texto glitch debajo del logo */
-.intro-text {
-  margin-top: 32px;
-  text-align: center;
-  opacity: 0;
-  animation: textReveal 0.8s 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
-}
-.intro-text h1 {
-  font-family: 'Cinzel', serif;
-  color: var(--text);
-  font-size: clamp(18px, 5vw, 28px);
-  letter-spacing: 4px;
-  font-weight: 600;
-  position: relative;
-}
-.intro-text h1::before,
-.intro-text h1::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-}
-.intro-text h1::before {
-  color: #ff0040;
-  animation: glitch1 2.5s infinite linear alternate-reverse;
-  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-  opacity: 0.7;
-}
-.intro-text h1::after {
-  color: #00e5ff;
-  animation: glitch2 3s infinite linear alternate-reverse;
-  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
-  opacity: 0.7;
-}
-.intro-text p {
-  font-family: 'Dancing Script', cursive;
-  color: var(--naranja-light);
-  font-size: clamp(16px, 4vw, 22px);
-  margin-top: 6px;
-  opacity: 0;
-  animation: fadeIn 0.6s 1.6s ease forwards;
-}
-
-/* Barra de progreso */
-.intro-progress {
-  position: absolute; bottom: 60px; left: 50%;
-  transform: translateX(-50%);
-  width: min(200px, 50vw);
-  height: 2px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 2px;
-  overflow: hidden;
-  z-index: 10;
-  opacity: 0;
-  animation: fadeIn 0.5s 0.8s ease forwards;
-}
-.intro-progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--naranja-dark), var(--naranja), var(--naranja-light));
-  border-radius: 2px;
-  animation: progressFill 2.5s 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  box-shadow: 0 0 10px rgba(240,120,32,0.5);
-}
-.intro-hint {
-  position: absolute; bottom: 28px; left: 50%;
-  transform: translateX(-50%);
-  font-size: 10px;
-  color: var(--text-dim);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  z-index: 10;
-  opacity: 0;
-  animation: fadeIn 0.5s 2s ease forwards, hintPulse 2s 3s ease-in-out infinite;
 }
 
 /* Animaciones */
@@ -234,36 +163,6 @@ html, body {
 @keyframes dotPulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%      { opacity: 0.5; transform: scale(0.6); }
-}
-@keyframes textReveal {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
-}
-@keyframes glitch1 {
-  0%, 90%, 100% { transform: translate(0); }
-  20% { transform: translate(-2px, 1px); }
-  40% { transform: translate(2px, -1px); }
-  60% { transform: translate(-1px, 2px); }
-  80% { transform: translate(1px, -2px); }
-}
-@keyframes glitch2 {
-  0%, 85%, 100% { transform: translate(0); }
-  15% { transform: translate(2px, -1px); }
-  35% { transform: translate(-2px, 1px); }
-  55% { transform: translate(1px, 2px); }
-  75% { transform: translate(-1px, -2px); }
-}
-@keyframes progressFill {
-  0%   { width: 0%; }
-  100% { width: 100%; }
-}
-@keyframes hintPulse {
-  0%, 100% { opacity: 0.4; }
-  50%      { opacity: 0.9; }
 }
 
 /* Salida de intro */
@@ -454,31 +353,19 @@ html, body {
 </head>
 <body>
 
-<!-- INTRO MODERNA -->
+<!-- INTRO LIMPIA: solo logo + anillos + partículas -->
 <div id="intro">
   <canvas id="particle-canvas"></canvas>
   <div class="intro-vignette"></div>
 
-  <!-- Anillos orbitales -->
-  <div class="orbit-ring orbit-ring-1"><div class="orbit-dot orbit-dot-1"></div></div>
-  <div class="orbit-ring orbit-ring-2"><div class="orbit-dot orbit-dot-2"></div></div>
-  <div class="orbit-ring orbit-ring-3"><div class="orbit-dot orbit-dot-3"></div></div>
+  <div class="intro-center">
+    <div class="orbit-ring orbit-ring-1"><div class="orbit-dot orbit-dot-1"></div></div>
+    <div class="orbit-ring orbit-ring-2"><div class="orbit-dot orbit-dot-2"></div></div>
+    <div class="orbit-ring orbit-ring-3"><div class="orbit-dot orbit-dot-3"></div></div>
 
-  <div class="intro-logo-wrap">
-    <div style="position:relative">
-      <img class="intro-logo" src="IMG-20260325-WA0013.png" alt="Municipio de Caá Catí"
-           onerror="this.style.background='var(--naranja)';this.style.display='block'">
-    </div>
-    <div class="intro-text">
-      <h1 data-text="MUNICIPALIDAD DE CAÁ CATÍ">MUNICIPALIDAD DE CAÁ CATÍ</h1>
-      <p>Cerca de todo</p>
-    </div>
+    <img class="intro-logo" src="IMG-20260325-WA0013.png" alt="Municipio de Caá Catí"
+         onerror="this.style.background='var(--naranja)';this.style.display='block'">
   </div>
-
-  <div class="intro-progress">
-    <div class="intro-progress-bar"></div>
-  </div>
-  <div class="intro-hint">Tocá para continuar</div>
 </div>
 
 <!-- PORTAL -->
