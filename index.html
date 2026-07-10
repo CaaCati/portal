@@ -19,12 +19,13 @@
   --naranja-dark:  #C95F0A;
   --naranja-light: #FFA04A;
   --naranja-glow:  rgba(240,120,32,0.18);
-  --bg:            #0C0C0C;
-  --surface:       #161616;
-  --surface2:      #1E1E1E;
-  --border:        rgba(255,255,255,0.07);
+  --bg:            #100B1C;
+  --glass:         rgba(255,255,255,0.08);
+  --glass-strong:  rgba(255,255,255,0.14);
+  --glass-border:  rgba(255,255,255,0.22);
+  --border:        rgba(255,255,255,0.14);
   --text:          #FFFFFF;
-  --text-dim:      rgba(255,255,255,0.45);
+  --text-dim:      rgba(255,255,255,0.58);
 }
 
 html, body {
@@ -36,13 +37,59 @@ html, body {
 }
 
 /* ══════════════════════════════════════
+   FONDO — BLOBS DE GRADIENTE (dan vida al vidrio)
+══════════════════════════════════════ */
+.bg-blobs {
+  position: fixed; inset: 0; z-index: 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.55;
+  will-change: transform;
+}
+.blob-1 {
+  width: 60vmax; height: 60vmax;
+  top: -20vmax; left: -18vmax;
+  background: radial-gradient(circle, var(--naranja) 0%, transparent 70%);
+  animation: blobFloat1 22s ease-in-out infinite;
+}
+.blob-2 {
+  width: 55vmax; height: 55vmax;
+  bottom: -22vmax; right: -16vmax;
+  background: radial-gradient(circle, #3E7BFA 0%, transparent 70%);
+  animation: blobFloat2 26s ease-in-out infinite;
+}
+.blob-3 {
+  width: 42vmax; height: 42vmax;
+  bottom: 8vmax; left: -14vmax;
+  background: radial-gradient(circle, #9B3FE0 0%, transparent 70%);
+  animation: blobFloat3 19s ease-in-out infinite;
+}
+@keyframes blobFloat1 {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50%      { transform: translate(6vmax, 8vmax) scale(1.12); }
+}
+@keyframes blobFloat2 {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50%      { transform: translate(-7vmax, -6vmax) scale(1.15); }
+}
+@keyframes blobFloat3 {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50%      { transform: translate(5vmax, -5vmax) scale(1.08); }
+}
+
+/* ══════════════════════════════════════
    INTRO MODERNA — MESH PARTICLES + ANILLOS
 ══════════════════════════════════════ */
 #intro {
   position: fixed; inset: 0; z-index: 200;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  background: var(--bg);
+  background: transparent;
   overflow: hidden;
 }
 
@@ -186,7 +233,7 @@ html, body {
   position: fixed; inset: 0; z-index: 100;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  background: var(--bg);
+  background: transparent;
   opacity: 0; pointer-events: none;
   transition: opacity 0.8s 0.1s ease;
   padding: env(safe-area-inset-top, 0) 0 env(safe-area-inset-bottom, 0);
@@ -214,9 +261,14 @@ html, body {
 .p-header {
   display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;
   margin-top: 20px;
-  padding-bottom: 18px;
+  padding: 22px 18px 20px;
   margin-bottom: 18px;
-  border-bottom: 1px solid rgba(240,120,32,0.15);
+  background: var(--glass);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
   opacity: 0;
   animation: slideDown 0.6s 0.1s ease forwards;
   flex-shrink: 0;
@@ -252,16 +304,19 @@ html, body {
 }
 
 .mod {
-  display: flex; align-items: flex-start;
-  gap: 16px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px 18px;
+  display: flex; align-items: center;
+  gap: 18px;
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  padding: 16px 18px;
   text-decoration: none; color: inherit;
   position: relative; overflow: hidden;
   cursor: pointer;
   opacity: 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.22);
   transition:
     background 0.25s,
     border-color 0.25s,
@@ -296,52 +351,46 @@ html, body {
 }
 
 .mod:hover, .mod:active {
-  background: var(--surface2);
-  border-color: rgba(240,120,32,0.3);
-  transform: translateX(4px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4), -4px 0 20px rgba(240,120,32,0.06);
+  background: var(--glass-strong);
+  border-color: rgba(240,120,32,0.45);
+  transform: translateX(4px) translateY(-2px);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.4), -4px 0 24px rgba(240,120,32,0.1), inset 0 1px 0 rgba(255,255,255,0.3);
 }
 .mod:hover::before, .mod:active::before { opacity: 1; top: 10%; bottom: 10%; }
 .mod:hover::after,  .mod:active::after  { opacity: 1; }
 
 .mod-icon {
-  font-size: 28px; flex-shrink: 0;
-  width: 44px; height: 44px;
+  font-size: 34px; flex-shrink: 0;
+  width: 62px; height: 62px;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.04);
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.20);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
   transition: transform 0.25s, background 0.25s;
 }
 .mod:hover .mod-icon, .mod:active .mod-icon {
   transform: scale(1.1);
-  background: rgba(240,120,32,0.1);
+  background: rgba(240,120,32,0.22);
 }
 
 .mod-text { flex: 1; min-width: 0; }
 .mod-tag {
-  font-size: 9px; font-weight: 700;
+  font-size: 11px; font-weight: 700;
   letter-spacing: 2.5px; text-transform: uppercase;
-  color: var(--naranja); margin-bottom: 3px;
+  color: var(--naranja); margin-bottom: 5px;
 }
 .mod-name {
   font-family: 'Raleway', sans-serif;
   color: var(--text);
-  font-size: 15px; font-weight: 600;
-  line-height: 1.2;
-  margin-bottom: 5px;
-}
-.mod-desc {
-  font-family: 'Raleway', sans-serif;
-  font-size: 12px; font-weight: 400;
-  color: var(--text-dim);
-  line-height: 1.55;
+  font-size: 19px; font-weight: 700;
+  line-height: 1.25;
 }
 
 .mod-right {
   flex-shrink: 0;
-  display: flex; align-items: flex-start;
-  padding-top: 2px;
+  display: flex; align-items: center;
 }
 .mod-arrow {
   color: var(--naranja);
@@ -357,6 +406,13 @@ html, body {
 <base target="_blank">
 </head>
 <body>
+
+<!-- FONDO GLASSMORPHISM -->
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
 
 <!-- INTRO LIMPIA: solo logo + anillos + partículas -->
 <div id="intro">
@@ -393,7 +449,6 @@ html, body {
         <div class="mod-text">
           <div class="mod-tag">Finanzas</div>
           <div class="mod-name">Pagos Municipales</div>
-          <div class="mod-desc">Proveedores, órdenes de pago, caja chica y movimientos financieros del municipio.</div>
         </div>
         <div class="mod-right"><span class="mod-arrow">›</span></div>
       </a>
@@ -403,7 +458,6 @@ html, body {
         <div class="mod-text">
           <div class="mod-tag">Gestión</div>
           <div class="mod-name">Agenda del Intendente</div>
-          <div class="mod-desc">Reuniones, eventos y compromisos oficiales organizados por fecha y prioridad.</div>
         </div>
         <div class="mod-right"><span class="mod-arrow">›</span></div>
       </a>
@@ -413,7 +467,6 @@ html, body {
         <div class="mod-text">
           <div class="mod-tag">Inventario</div>
           <div class="mod-name">Stock Municipal</div>
-          <div class="mod-desc">Control de inventario de farmacia y depósito. Gestión de entregas por sector.</div>
         </div>
         <div class="mod-right"><span class="mod-arrow">›</span></div>
       </a>
@@ -423,7 +476,6 @@ html, body {
         <div class="mod-text">
           <div class="mod-tag">Finanzas</div>
           <div class="mod-name">Comparativo Financiero</div>
-          <div class="mod-desc">Ingresos y egresos mensuales. Comparación entre períodos y evolución por categoría.</div>
         </div>
         <div class="mod-right"><span class="mod-arrow">›</span></div>
       </a>
